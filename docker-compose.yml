@@ -1,0 +1,36 @@
+# ejemplo de docker compose MULTICONTAINERS
+# al tener multicontainers los aisla en una misma red
+
+# indica la version de docker
+version: '3'
+
+# se listan los servicios que se van a ocupar (contenedores)
+services:
+#se asigna un nombre al contenedor y todas sus propiedades
+  db:
+    container_name: postgres_database
+    image: postgres:15.1
+    volumes:
+      # - postgres-db:/var/lib/postgresql/data
+      - ./postgresdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=root
+
+  pgadmin:
+    #depends_on es para que este contenedor se cree solo si existe -db por ejemplo
+    depends_on:
+      - db
+    container_name: pgadmin
+    image: dpage/pgadmin4:6.17
+    volumes:
+      - ./pgadmin:/var/lib/pgadmin
+    environment:
+      - PGADMIN_DEFAULT_PASSWORD=root
+      - PGADMIN_DEFAULT_EMAIL=superman@gmail.com
+    ports:
+      - 8080:80
+
+# cuando queremos crear un volumen al momento. Agrega nomenclatura nombreContenedor_nombreVolumen al volumen
+# volumes:
+#   postgres-db:
+#     external: true
