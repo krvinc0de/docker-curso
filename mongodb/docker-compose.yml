@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  mongodb:
+    image: mongo:6.0
+    volumes:
+      - /MONGO_DATA_XR_GDOCS/data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=gdoxr73664
+      - MONGO_INITDB_ROOT_PASSWORD=V4am0Sch1Vas28374
+    command: ['--auth']
+    ports:
+      - 27017:27017
+    restart: always
