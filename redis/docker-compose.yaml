@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  redis-xidoorutas:
+    container_name: redis-xr
+    image: redis:alpine3.18
+    restart: always
+    volumes:
+      - /home/xidoor/data-cache-redis:/data
+    ports:
+      - '3306:6379'
+    # command: redis-server --loglevel warning --requirepass PASSWO4RD
